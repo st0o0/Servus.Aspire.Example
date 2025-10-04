@@ -21,4 +21,8 @@
       <PackageReference Include="Servus.Core" Version="0.29.0-alpha.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Servus.Aspire.Example.ServiceDefaults\Servus.Aspire.Example.ServiceDefaults.csproj" />
+    </ItemGroup>
+
 </Project>

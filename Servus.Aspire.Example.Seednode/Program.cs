@@ -7,9 +7,16 @@ await AppBuilder.Create()
     .WithSetup<HealthCheckContainer>()
     .Build().RunAsync();
 
-public class AkkaOptions
+public sealed class HuginClusterOptions
 {
-    [ConfigurationKeyName("hostname")] public string Hostname { get; set; } = "localhost";
+    internal const string EnvironmentVariableNamePort = "ACTORSYSTEM_PORT";
+    internal const string EnvironmentVariableNameHostname = "ACTORSYSTEM_HOSTNAME";
 
-    [ConfigurationKeyName("port")] public int Port { get; set; } = 14884;
+    internal const string SectionName = "ClusterOptions";
+
+    public string Hostname { get; set; } = string.Empty;
+    public int Port { get; set; }
+
+    public List<string> Roles { get; set; } = new();
+    public List<string> SeedNodes { get; set; } = new();
 }

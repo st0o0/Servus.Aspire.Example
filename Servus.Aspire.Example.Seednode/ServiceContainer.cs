@@ -32,11 +32,12 @@ public class ServiceContainer : IServiceSetupContainer, ILoggingSetupContainer
             .WithTracing(tracing =>
             {
                 tracing.AddSource()
-                    .AddAspNetCoreInstrumentation(options =>
-                        // Exclude health check requests from tracing
-                        options.Filter = context =>
-                            !context.Request.Path.StartsWithSegments("/healthz")
-                            && !context.Request.Path.StartsWithSegments("/alive")
+                    .AddAspNetCoreInstrumentation(
+                        // options =>
+                        // // Exclude health check requests from tracing
+                        // options.Filter = context =>
+                        //     !context.Request.Path.StartsWithSegments("/healthz")
+                        //     && !context.Request.Path.StartsWithSegments("/alive")
                     )
                     // Uncomment the following line to enable gRPC instrumentation (requires the OpenTelemetry.Instrumentation.GrpcNetClient package)
                     //.AddGrpcClientInstrumentation()
@@ -50,29 +51,19 @@ public class ServiceContainer : IServiceSetupContainer, ILoggingSetupContainer
             services.AddOpenTelemetry().UseOtlpExporter();
         }
 
-        var akkaOptions = new AkkaOptions();
-        configuration.GetSection("Akka").Bind(akkaOptions);
+        var options = configuration.GetRequiredSection(HuginClusterOptions.SectionName).Get<HuginClusterOptions>()!;
         services.AddAkka("TEST", builder =>
         {
+            builder.WithActorSystemLivenessCheck()
+                .WithAkkaClusterReadinessCheck();
             // Setup Akka.Remote
-            builder.WithRemoting(opt =>
-            {
-                opt.PublicHostName = akkaOptions.Hostname;
-                opt.PublicPort = akkaOptions.Port;
-                opt.HostName = "0.0.0.0";
-                opt.Port = akkaOptions.Port;
-            });
+            builder.WithRemoting("0.0.0.0", options.Port, options.Hostname);
 
             // Setup Akka.Cluster
-             builder.WithClustering(new ClusterOptions
-             {
-                SeedNodes = configuration
-                    .GetSection("CLUSTER_SEEDS")
-                    .GetChildren()
-                    .Select(c => c.Value)
-                    .Where(v => !string.IsNullOrWhiteSpace(v))
-                    .Cast<string>()
-                    .ToArray()
+            builder.WithClustering(new ClusterOptions
+            {
+                SeedNodes = options.SeedNodes.ToArray(),
+                Roles = options.Roles.ToArray(),
             });
         });
     }

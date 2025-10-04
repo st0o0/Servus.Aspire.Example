@@ -1,28 +1,38 @@
-using System.Net.Sockets;
-
 var builder = DistributedApplication.CreateBuilder(args);
 
 var mongoDb = builder.AddMongoDB("mongo");
 
 var seedNode = builder.AddProject<Projects.Servus_Aspire_Example_Seednode>("seednode")
-    .WithEndpoint(name: "remote", env: "Akka__Port")
-    .WithEndpoint("akka", endpoint =>
-    {
-        endpoint.Protocol = ProtocolType.Tcp;
-        endpoint.TargetHost = $"TEST@{endpoint.TargetHost}";
-        endpoint.UriScheme = "akka.tcp";
-    })
+    .WithEnvironment("ClusterOptions__SeedNodes__1", "akka.tcp://TEST@localhost:14001")
+    .WithEnvironment("ClusterOptions__Roles__1", "seednode")
+    .WithEnvironment("ClusterOptions__Port", "14001")
+    .WithEnvironment("ClusterOptions__Hostname", "localhost")
     .WithHttpEndpoint()
     .WithHttpHealthCheck("/healthz")
     .WithReference(mongoDb)
     .WaitFor(mongoDb);
 
 var node = builder.AddProject<Projects.Servus_Aspire_Example_Node>("node")
-    .WithEndpoint(name: "remote", env: "Akka__Port")
+    .WithEnvironment("ClusterOptions__SeedNodes__1", "akka.tcp://TEST@localhost:14001")
+    .WithEnvironment("ClusterOptions__Roles__1", "node")
+    .WithEnvironment("ClusterOptions__Port", "14002")
+    .WithEnvironment("ClusterOptions__Hostname", "localhost")
     .WithHttpEndpoint()
     .WithHttpHealthCheck("/healthz")
     .WithReference(seedNode)
     .WithReference(mongoDb)
+    .WaitFor(seedNode)
     .WaitFor(mongoDb);
 
+
 builder.Build().Run();
+
+public static class Extensions
+{
+    public static IResourceBuilder<T> WithAkka<T>(this IResourceBuilder<T> builder) where T : IResourceWithEnvironment
+    {
+        return builder;
+    }
+
+    public static
+}

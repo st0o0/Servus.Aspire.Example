@@ -12,6 +12,12 @@
 
     <ItemGroup>
         <PackageReference Include="Aspire.Hosting.AppHost" Version="9.5.1"/>
+        <PackageReference Include="Aspire.Hosting.MongoDB" Version="9.5.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Servus.Aspire.Example.Node\Servus.Aspire.Example.Node.csproj" />
+      <ProjectReference Include="..\Servus.Aspire.Example.Seednode\Servus.Aspire.Example.Seednode.csproj" />
     </ItemGroup>
 
 </Project>

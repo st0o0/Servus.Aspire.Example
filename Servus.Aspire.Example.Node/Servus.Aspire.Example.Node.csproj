@@ -17,6 +17,8 @@
       <PackageReference Include="Akka.Persistence.MongoDb" Version="1.5.42" />
       <PackageReference Include="Akka.Remote.Hosting" Version="1.5.51.1" />
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.9" />
+      <PackageReference Include="Servus.Akka" Version="0.3.4" />
+      <PackageReference Include="Servus.Core" Version="0.29.0-alpha.1" />
     </ItemGroup>
 
 </Project>

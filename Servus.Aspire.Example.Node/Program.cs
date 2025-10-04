@@ -3,7 +3,11 @@ using Akka.Hosting;
 using Akka.Remote.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Servus.Core;
+using Servus.Core.Application.Startup;
 
+AppBuilder.Create()
+    .WithSetup<>()
 
 await Host.CreateDefaultBuilder(args)
     .ConfigureServices((context, services) =>
@@ -26,13 +30,21 @@ await Host.CreateDefaultBuilder(args)
             // Setup Akka.Cluster
             builder.WithClustering(new ClusterOptions
             {
-                
+                SeedNodes = context.Configuration
+                    .GetSection("CLUSTER_SEEDS")
+                    .GetChildren()
+                    .Select(c => c.Value)
+                    .Where(v => !string.IsNullOrWhiteSpace(v))
+                    .Cast<string>()
+                    .ToArray()
             });
         });
     })
     .UseConsoleLifetime()
     .RunConsoleAsync();
     
+public class NodeActorSystemSetupContainer : ActorSystemSetupContainer
+
 public class AkkaOptions
 {
     [ConfigurationKeyName("hostname")]

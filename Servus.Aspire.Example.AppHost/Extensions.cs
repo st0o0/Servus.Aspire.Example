@@ -1,6 +1,5 @@
 namespace Servus.Aspire.Example.AppHost;
 
-public class Extensions
+public static class Extensions
 {
-    
 }

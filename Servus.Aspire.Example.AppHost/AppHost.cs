@@ -17,6 +17,7 @@ var node = builder.AddProject<Projects.Servus_Aspire_Example_Node>("node")
     .WithEnvironment("ClusterOptions__Roles__1", "node")
     .WithEnvironment("ClusterOptions__Port", "14002")
     .WithEnvironment("ClusterOptions__Hostname", "localhost")
+    
     .WithHttpEndpoint()
     .WithHttpHealthCheck("/healthz")
     .WithReference(seedNode)
@@ -24,15 +25,4 @@ var node = builder.AddProject<Projects.Servus_Aspire_Example_Node>("node")
     .WaitFor(seedNode)
     .WaitFor(mongoDb);
 
-
 builder.Build().Run();
-
-public static class Extensions
-{
-    public static IResourceBuilder<T> WithAkka<T>(this IResourceBuilder<T> builder) where T : IResourceWithEnvironment
-    {
-        return builder;
-    }
-
-    public static
-}

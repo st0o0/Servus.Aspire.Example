@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servus.Aspire.Example.AppHost", "Servus.Aspire.Example.AppHost\Servus.Aspire.Example.AppHost.csproj", "{DEDDF9E2-7252-4AA6-BC1A-2FE6FD717E20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servus.Aspire.Example.ServiceDefaults", "Servus.Aspire.Example.ServiceDefaults\Servus.Aspire.Example.ServiceDefaults.csproj", "{A24AB37C-9586-48A6-BF59-2E8489C97C59}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servus.Aspire.Example.Node", "Servus.Aspire.Example.Node\Servus.Aspire.Example.Node.csproj", "{DB38B913-A967-45FF-AD7A-4E73D6A9855E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servus.Aspire.Example.Seednode", "Servus.Aspire.Example.Seednode\Servus.Aspire.Example.Seednode.csproj", "{08AF82FB-EF15-4991-98ED-A41C6A9A47DA}"
@@ -20,10 +18,6 @@ Global
 		{DEDDF9E2-7252-4AA6-BC1A-2FE6FD717E20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEDDF9E2-7252-4AA6-BC1A-2FE6FD717E20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEDDF9E2-7252-4AA6-BC1A-2FE6FD717E20}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A24AB37C-9586-48A6-BF59-2E8489C97C59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A24AB37C-9586-48A6-BF59-2E8489C97C59}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A24AB37C-9586-48A6-BF59-2E8489C97C59}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A24AB37C-9586-48A6-BF59-2E8489C97C59}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DB38B913-A967-45FF-AD7A-4E73D6A9855E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DB38B913-A967-45FF-AD7A-4E73D6A9855E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB38B913-A967-45FF-AD7A-4E73D6A9855E}.Release|Any CPU.ActiveCfg = Release|Any CPU
